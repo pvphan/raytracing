@@ -8,6 +8,7 @@ int main() {
     // Render
     std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
     for (int j = imageHeight-1; j >= 0; --j) {
+        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
         for (int i = 0; i < imageWidth; ++i) {
             auto r = double(i) / (imageWidth-1);
             auto g = double(j) / (imageHeight-1);
@@ -20,5 +21,6 @@ int main() {
             std::cout << ir << ' ' << ig << ' ' << ib << '\n';
         }
     }
+    std::cerr << "\nDone.\n";
     return 0;
 }
