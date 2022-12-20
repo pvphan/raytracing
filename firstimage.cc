@@ -1,5 +1,9 @@
 #include <iostream>
 
+#include "color.h"
+#include "vec3.h"
+
+
 int main() {
     // Image
     const int imageWidth = 256;
