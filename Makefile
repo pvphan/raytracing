@@ -15,7 +15,7 @@ shell: image
 firstimage: image
 	mkdir -p ${CONTAINER_OUTPUT_PATH}
 	docker run ${RUN_FLAGS} /bin/bash -c \
-		"clang++ -Wall -std=c++14 firstimage.cc -o ${CONTAINER_OUTPUT_PATH}/firstimage.exe && ${CONTAINER_OUTPUT_PATH}/firstimage.exe > ${CONTAINER_OUTPUT_PATH}/firstimage.ppm"
+		"clang++ -Wall -std=c++14 main.cc -o ${CONTAINER_OUTPUT_PATH}/main.exe && ${CONTAINER_OUTPUT_PATH}/main.exe > ${CONTAINER_OUTPUT_PATH}/main.ppm"
 
 image:
 	DOCKER_BUILDKIT=1 docker build . --tag ${IMAGE_TAG}
