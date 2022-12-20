@@ -18,4 +18,4 @@ firstimage: image
 		"clang++ -Wall -std=c++14 firstimage.cc -o ${CONTAINER_OUTPUT_PATH}/firstimage.exe && ${CONTAINER_OUTPUT_PATH}/firstimage.exe > ${CONTAINER_OUTPUT_PATH}/firstimage.ppm"
 
 image:
-	docker build . --tag ${IMAGE_TAG}
+	DOCKER_BUILDKIT=1 docker build . --tag ${IMAGE_TAG}
