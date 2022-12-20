@@ -9,13 +9,13 @@ RUN_FLAGS = \
 	--volume=${HOST_OUTPUT_PATH}:${CONTAINER_OUTPUT_PATH} \
 	${IMAGE_TAG}
 
-shell: image
-	docker run -it ${RUN_FLAGS} bash
-
-firstimage: image
+main: image
 	mkdir -p ${CONTAINER_OUTPUT_PATH}
 	docker run ${RUN_FLAGS} /bin/bash -c \
 		"clang++ -Wall -std=c++14 main.cc -o ${CONTAINER_OUTPUT_PATH}/main.exe && ${CONTAINER_OUTPUT_PATH}/main.exe > ${CONTAINER_OUTPUT_PATH}/main.ppm"
+
+shell: image
+	docker run -it ${RUN_FLAGS} bash
 
 image:
 	DOCKER_BUILDKIT=1 docker build . --tag ${IMAGE_TAG}
