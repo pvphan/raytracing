@@ -6,19 +6,22 @@
 
 double hitSphere(const point3& center, double radius, const ray& r) {
     vec3 oc = r.origin() - center;
-    auto a = dot(r.direction(), r.direction());
-    auto b = 2.0 * dot(oc, r.direction());
-    auto c = dot(oc, oc) - radius*radius;
-    auto discriminant = b*b - 4*a*c;
+    auto a = r.direction().lengthSquared();
+    auto halfB = dot(oc, r.direction());
+    auto c = oc.lengthSquared() - radius*radius;
+    auto discriminant = halfB*halfB - a*c;
     if (discriminant < 0) {
         return -1.0;
     } else {
-        return (-b - sqrt(discriminant)) / (2.0*a);
+        return (-halfB - sqrt(discriminant)) / a;
     }
 }
 
 color rayColor(const ray& r) {
-    auto t = hitSphere(point3(0, 0, -1), 0.5, r);
+    //point3 sphereCenter = point3(0.5, 0.7, -1);
+    point3 sphereCenter = point3(0, 0, -1);
+    double sphereRadius = 0.5;
+    auto t = hitSphere(sphereCenter, sphereRadius, r);
     if (t > 0.0) {
         vec3 N = unitVector(r.at(t) - vec3(0, 0, -1));
         return 0.5*color(N.x()+1, N.y()+1, N.z()+1);
