@@ -4,11 +4,10 @@
 #include "hittable.h"
 #include "vec3.h"
 
-class sphere : public Hittable {
-
+class Sphere : public Hittable {
 public:
-    sphere() {}
-    sphere(point3 cen, double r) : center(cen), radius(r) {};
+    Sphere() {}
+    Sphere(point3 cen, double r) : center(cen), radius(r) {};
 
     virtual bool hit(
         const ray& r, double tMin, double tMax, HitRecord& rec) const override;
@@ -16,10 +15,9 @@ public:
 public:
     point3 center;
     double radius;
-
 };
 
-bool sphere::hit(const ray& r, double tMin, double tMax, HitRecord& rec) const {
+bool Sphere::hit(const ray& r, double tMin, double tMax, HitRecord& rec) const {
     vec3 oc = r.origin() - center;
     auto a = r.direction().lengthSquared();
     auto halfB = dot(oc, r.direction());
@@ -41,10 +39,10 @@ bool sphere::hit(const ray& r, double tMin, double tMax, HitRecord& rec) const {
     }
 
     rec.t = root;
-    rec.p = r.at(rect.t);
+    rec.p = r.at(rec.t);
     rec.normal = (rec.p - center) / radius;
     vec3 outwardNormal = (rec.p - center) / radius;
-    rect.setFaceNormal(r, outwardNormal);
+    rec.setFaceNormal(r, outwardNormal);
     return true;
 }
 

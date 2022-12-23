@@ -1,8 +1,9 @@
 #include <iostream>
 
+#include "rtweekend.h"
 #include "color.h"
-#include "ray.h"
-#include "vec3.h"
+#include "hittablelist.h"
+#include "sphere.h"
 
 double hitSphere(const point3& center, double radius, const ray& r) {
     vec3 oc = r.origin() - center;
@@ -36,6 +37,11 @@ int main() {
     const auto aspectRatio = 16.0 / 9.0;
     const int imageWidth = 400;
     const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+
+    // World
+    HittableList world;
+    world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5));
+    world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
     // Camera
     auto viewportHeight = 2.0;
