@@ -1,8 +1,9 @@
 #include <iostream>
 
-#include "rtweekend.h"
+#include "camera.h"
 #include "color.h"
 #include "hittablelist.h"
+#include "rtweekend.h"
 #include "sphere.h"
 
 color rayColor(const ray& r, const Hittable& world) {
@@ -20,6 +21,7 @@ int main() {
     const auto aspectRatio = 16.0 / 9.0;
     const int imageWidth = 400;
     const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+    const int samplesPerPixel = 100;
 
     // World
     HittableList world;
@@ -27,14 +29,7 @@ int main() {
     world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
     // Camera
-    auto viewportHeight = 2.0;
-    auto viewportWidth = aspectRatio * viewportHeight;
-    auto focalLength = 1.0;
-
-    auto origin = point3(0, 0, 0);
-    auto horizontal = vec3(viewportWidth, 0, 0);
-    auto vertical = vec3(0, viewportHeight, 0);
-    auto lowerLeftCorner = origin - horizontal/2 - vertical/2 - vec3(0, 0, focalLength);
+    Camera cam;
 
     // Render
     std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";

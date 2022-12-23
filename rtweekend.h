@@ -27,6 +27,16 @@ inline double randomDouble(double min, double max) {
     return min + (max-min)*randomDouble();
 }
 
+inline double clamp(double x, double min, double max) {
+    if (x < min) {
+        return min;
+    } else if (x > max) {
+        return max;
+    } else {
+        return x;
+    }
+}
+
 #include "ray.h"
 #include "vec3.h"
 
